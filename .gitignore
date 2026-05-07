@@ -1,0 +1,53 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.sln
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Unity
+*.apk
+*.aab
+*.unitypackage
+*.crashreport
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Asset meta files should be tracked
+!.gitattributes
+
+# Crashlytics
+crashlytics-build.properties
+
+# Unity memory profiler
+*.snap
+
+# Unity asset server
+Assets/AssetStoreTools*
+
+# Rider
+.consulo/
+*.sln.iml
