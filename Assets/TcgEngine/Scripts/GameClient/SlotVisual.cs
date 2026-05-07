@@ -39,13 +39,13 @@ namespace TcgEngine.Client
             borderObj.transform.SetParent(transform);
             borderObj.transform.localPosition = Vector3.zero;
             borderObj.transform.localRotation = Quaternion.identity;
-            borderObj.transform.localScale = Vector3.one * 1.05f;
+            borderObj.transform.localScale = Vector3.one;
 
             borderRenderer = borderObj.AddComponent<SpriteRenderer>();
             borderRenderer.sprite = CreateBorderSprite();
             borderRenderer.sortingOrder = -1;
             borderRenderer.drawMode = SpriteDrawMode.Sliced;
-            borderRenderer.size = new Vector2(4.5f, 4.5f);
+            borderRenderer.size = new Vector2(4.0f, 4.0f);
         }
 
         private Sprite CreateBorderSprite()
