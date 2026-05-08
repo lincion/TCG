@@ -351,13 +351,28 @@ namespace TcgEngine
 
         public UserDeckData(DeckData deck)
         {
+            if (deck == null)
+            {
+                tid = "";
+                title = "";
+                hero = new UserCardData();
+                cards = new UserCardData[0];
+                return;
+            }
             tid = deck.id;
             title = deck.title;
             hero = new UserCardData(deck.hero, VariantData.GetDefault());
-            cards = new UserCardData[deck.cards.Length];
-            for (int i = 0; i < deck.cards.Length; i++)
+            if (deck.cards != null)
             {
-                cards[i] = new UserCardData(deck.cards[i], VariantData.GetDefault());
+                cards = new UserCardData[deck.cards.Length];
+                for (int i = 0; i < deck.cards.Length; i++)
+                {
+                    cards[i] = new UserCardData(deck.cards[i], VariantData.GetDefault());
+                }
+            }
+            else
+            {
+                cards = new UserCardData[0];
             }
         }
 
