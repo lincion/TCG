@@ -21,10 +21,14 @@ namespace TcgEngine.Client
 
         private static List<BoardSlot> slot_list = new List<BoardSlot>();
 
+        private SlotVisual slotVisual;
+        private bool wasHighlighted;
+
         protected override void Awake()
         {
             base.Awake();
             slot_list.Add(this);
+            slotVisual = GetComponent<SlotVisual>();
         }
 
         protected override void OnDestroy()
@@ -86,6 +90,14 @@ namespace TcgEngine.Client
             if (can_do_attack || can_do_move)
             {
                 target_alpha = 1f;
+            }
+
+            // Wire SlotVisual highlight
+            bool shouldHighlight = target_alpha > 0.5f;
+            if (shouldHighlight != wasHighlighted && slotVisual != null)
+            {
+                slotVisual.SetHighlighted(shouldHighlight);
+                wasHighlighted = shouldHighlight;
             }
         }
 

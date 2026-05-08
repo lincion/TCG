@@ -11,6 +11,7 @@ namespace TcgEngine.Client
 
     /// <summary>
     /// Controls the visual appearance of a BoardSlot (border color, type indicator)
+    /// Borders are always visible; set Highlighted during placement for valid slots.
     /// </summary>
     public class SlotVisual : MonoBehaviour
     {
@@ -18,10 +19,18 @@ namespace TcgEngine.Client
         public int talentLevel;
 
         [Header("Border Colors")]
+        public Color battlefieldColor = new Color(0.25f, 0.25f, 0.25f, 0.3f);
         public Color talentColor = new Color(0.18f, 0.8f, 0.35f, 0.55f);
         public Color marketColor = new Color(0.6f, 0.25f, 0.75f, 0.55f);
+        public Color highlightColor = new Color(0.2f, 0.9f, 1f, 0.85f);
+
+        [Header("Highlight")]
+        public float highlightScale = 1.15f;
 
         private SpriteRenderer borderRenderer;
+        private Color normalColor;
+        private Vector3 normalScale;
+        private bool highlighted;
 
         void Awake()
         {
@@ -80,17 +89,41 @@ namespace TcgEngine.Client
             switch (slotType)
             {
                 case SlotVisualType.Talent:
-                    borderRenderer.color = talentColor;
-                    borderRenderer.enabled = true;
+                    normalColor = talentColor;
                     break;
                 case SlotVisualType.Market:
-                    borderRenderer.color = marketColor;
-                    borderRenderer.enabled = true;
+                    normalColor = marketColor;
                     break;
                 default:
-                    borderRenderer.enabled = false;
+                    normalColor = battlefieldColor;
                     break;
             }
+
+            borderRenderer.color = normalColor;
+            borderRenderer.enabled = true;
+            normalScale = borderRenderer.transform.localScale;
+        }
+
+        public void SetHighlighted(bool highlight)
+        {
+            if (borderRenderer == null) return;
+
+            highlighted = highlight;
+            if (highlight)
+            {
+                borderRenderer.color = highlightColor;
+                borderRenderer.transform.localScale = normalScale * highlightScale;
+            }
+            else
+            {
+                borderRenderer.color = normalColor;
+                borderRenderer.transform.localScale = normalScale;
+            }
+        }
+
+        public bool IsHighlighted()
+        {
+            return highlighted;
         }
 
         public void SetVisualType(SlotVisualType type, int level = 0)

@@ -25,7 +25,8 @@ namespace TcgEngine.Client
             render = GetComponent<SpriteRenderer>();
             collide = GetComponent<Collider>();
             start_alpha = render.color.a;
-            render.color = new Color(render.color.r, render.color.g, render.color.b, 0f);
+            current_alpha = start_alpha * 0.2f;
+            render.color = new Color(render.color.r, render.color.g, render.color.b, current_alpha);
             bounds = collide.bounds;
         }
 
@@ -36,7 +37,8 @@ namespace TcgEngine.Client
 
         protected virtual void Update()
         {
-            current_alpha = Mathf.MoveTowards(current_alpha, target_alpha * start_alpha, 2f * Time.deltaTime);
+            float min_alpha = start_alpha * 0.2f;
+            current_alpha = Mathf.MoveTowards(current_alpha, Mathf.Max(min_alpha, target_alpha * start_alpha), 2f * Time.deltaTime);
             render.color = new Color(render.color.r, render.color.g, render.color.b, current_alpha);
         }
 
